@@ -41,7 +41,7 @@ app.get("/api/persons/:id", (req, res) => {
   const id = Number(req.params.id)
   const person = persons.find(p => p.id === id)
 
-  if (!person) { res.status(404).end() }
+  if (!person) { res.status(404).json({"error": "person does not exist"}) }
 
   res.status(200).json(person)
 })
@@ -58,7 +58,7 @@ app.post("/api/persons", (req, res) => {
 
   if (personExists) {
     return res.status(400).json({
-      "error": "Name already exist! Choose another name"
+      "error": "Name must be  unique"
     })
   }
 
